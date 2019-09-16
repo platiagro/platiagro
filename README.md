@@ -11,28 +11,26 @@ AI Platform for pushing Ag-Tech forward.
 
 ## Requirements
 
-Ensure that you have a [Kubernetes Cluster](https://kubernetes.io/docs/setup/) and [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl) configured for running commands against the Kubernetes cluster.
+Ensure that you have a [Kubernetes Cluster](https://kubernetes.io/docs/setup/), [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl), and [kfctl](https://www.kubeflow.org/docs/started/getting-started/#installing-command-line-tools) configured for running commands against the Kubernetes cluster.
 
-## 1. Install the Controller and UI
-
-```shell
-kubectl create ns platiagro
-kubectl apply -n platiagro -f https://raw.githubusercontent.com/platiagro/platiagro/master/manifests/install.yaml
-```
-
-## 2. Access the PlatIAgro UI
+## Install PlatIAgro
 
 ```shell
-kubectl proxy
+export KFAPP="<your choice of application directory name>"
+export CONFIG="https://raw.githubusercontent.com/platiagro/kubeflow/platiagro/bootstrap/config/kfctl_platiagro.yaml"
+kfctl init ${KFAPP} --config=${CONFIG} -V
+cd ${KFAPP}
+kfctl generate all -V
+kfctl apply all -V
 ```
 
-Then visit: http://127.0.0.1:8001/api/v1/namespaces/platiagro/services/platiagro-ui/proxy/
+Then visit: http://localhost:31380/
 
-## Cleanup
+## Delete PlatIAgro
 
 To undeploy PlatIAgro, run:
 
 ```shell
-kubectl delete -n platiagro -f https://raw.githubusercontent.com/platiagro/platiagro/master/manifests/install.yaml
-kubectl delete namespace platiagro
+cd ${KFAPP}
+kfctl delete all -V
 ```
