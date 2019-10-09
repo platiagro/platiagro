@@ -37,3 +37,7 @@ kfctl delete all -V
 kubectl delete namespace istio-system
 helm del --purge seldon-core
 ```
+
+## Troubles
+
+Please read [INSTALLATION.md](https://github.com/platiagro/platiagro/blob/master/INSTALLATION.md)
