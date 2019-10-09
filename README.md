@@ -20,6 +20,7 @@ export KFAPP="kubeflow"
 export CONFIG="https://raw.githubusercontent.com/platiagro/kubeflow/platiagro/bootstrap/config/kfctl_platiagro.yaml"
 kfctl init ${KFAPP} --config=${CONFIG} -V
 cd ${KFAPP}
+kubectl create namespace kubeflow-anonymous
 kfctl generate all -V
 kfctl apply all -V
 helm install seldon-core-operator --name seldon-core --set istio.enabled=true --set istio.gateway=kubeflow-gateway --repo https://storage.googleapis.com/seldon-charts --set usageMetrics.enabled=true --namespace kubeflow
@@ -35,6 +36,7 @@ To undeploy PlatIAgro, run:
 cd ${KFAPP}
 kfctl delete all -V
 kubectl delete namespace istio-system
+kubectl delete namespace kubeflow-anonymous
 helm del --purge seldon-core
 ```
 
