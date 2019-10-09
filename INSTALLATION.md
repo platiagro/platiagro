@@ -58,7 +58,7 @@ kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"templat
 helm init --service-account tiller
 ```
 
-## Create local persistent volume (https://www.kubeflow.org/docs/other-guides/troubleshooting/)
+## Create local persistent volume [Kubeflow Troubleshooting](https://www.kubeflow.org/docs/other-guides/troubleshooting/)
 
 ```shell
 sudo mkdir /mnt/pv1
