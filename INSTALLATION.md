@@ -63,11 +63,10 @@ helm init --service-account tiller
 Create volumes on the worker node
 
 ```shell
-kubectl taint nodes --all node-role.kubernetes.io/master-
-kubectl create serviceaccount --namespace kube-system tiller
-kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
-kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'      
-helm init --service-account tiller
+for i in `seq 1 100`; do
+  mkdir "/mnt/disks/vol-$i"
+  mount -t tmpfs -o size=20G "vol-$i" "/mnt/disks/vol-$i"
+done
 ```
 
 Create local-storage-class and set default
