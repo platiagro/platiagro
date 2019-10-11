@@ -24,6 +24,8 @@ kubectl create namespace kubeflow-anonymous
 kfctl generate all -V
 kfctl apply all -V
 helm install seldon-core-operator --name seldon-core --set istio.enabled=true --set istio.gateway=kubeflow-gateway --repo https://storage.googleapis.com/seldon-charts --set usageMetrics.enabled=true --namespace kubeflow
+sudo docker pull platiagro/datascience-notebook
+sudo docker pull platiagro/autosklearn-notebook
 ```
 
 Then visit: http://localhost:31380/
