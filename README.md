@@ -21,11 +21,13 @@ export CONFIG="https://raw.githubusercontent.com/platiagro/kubeflow/platiagro/bo
 kfctl init ${KFAPP} --config=${CONFIG} -V
 cd ${KFAPP}
 kubectl create namespace kubeflow-anonymous
+kubectl -n kubeflow-anonymous create serviceaccount default-editor
 kfctl generate all -V
 kfctl apply all -V
 helm install seldon-core-operator --name seldon-core --set istio.enabled=true --set istio.gateway=kubeflow-gateway --repo https://storage.googleapis.com/seldon-charts --set usageMetrics.enabled=true --namespace kubeflow
 sudo docker pull platiagro/datascience-notebook
 sudo docker pull platiagro/autosklearn-notebook
+
 ```
 
 Then visit: http://localhost:31380/
