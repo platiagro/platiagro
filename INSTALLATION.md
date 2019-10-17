@@ -1,5 +1,27 @@
 # Install guide on Ubuntu 18.04
 
+## Disable swap [Reference](https://www.tecmint.com/disable-swap-partition-in-centos-ubuntu/)
+
+```shell
+sudo swapoff -a
+```
+
+Search for the swap line and comment the entire line by adding a # in front of the line
+
+```shell
+sudo vi /etc/fstab
+sudo reboot
+sudo mount -a
+```
+
+Check if the swap area has been completely and permanently disabled in your system.
+
+```shell
+free -h
+blkid 
+lsblk
+```
+
 ## Docker
 
 ```shell
@@ -38,7 +60,6 @@ sudo apt-get install kubeadm=1.14.4-00 kubelet=1.14.4-00 kubectl=1.14.4-00
 
 ```shell
 sudo sysctl net.bridge.bridge-nf-call-iptables=1
-sudo swapoff -a
 sudo kubeadm init
 
 rm -rf $HOME/.kube
