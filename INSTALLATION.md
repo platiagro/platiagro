@@ -68,7 +68,6 @@ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=admin --user=kubelet --group=system:serviceaccounts
-
 ```
 
 ## Helm
@@ -77,7 +76,6 @@ kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-ad
 kubectl taint nodes --all node-role.kubernetes.io/master-
 kubectl create serviceaccount --namespace kube-system tiller
 kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
-kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'      
 helm init --service-account tiller
 ```
 
@@ -86,166 +84,52 @@ helm init --service-account tiller
 Create volumes on the worker node
 
 ```shell
-for i in `seq 1 100`; do
-  mkdir "/mnt/disks/vol-$i"
-  mount -t tmpfs -o size=20G "vol-$i" "/mnt/disks/vol-$i"
-done
+sudo mkdir -p "mnt/pv1"
+sudo mkdir -p "mnt/pv2"
+sudo mkdir -p "mnt/pv3"
 ```
 
 Create local-storage-class and set default
 
 ```shell
-cat <<EOF | kubectl apply -f -
-kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
-  name: local-storage
-provisioner: kubernetes.io/no-provisioner
-reclaimPolicy: Delete
-EOF
- 
-kubectl patch storageclass local-storage -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
- 
-cat <<EOF | kubectl apply -f -
----
-# Source: provisioner/templates/provisioner.yaml
+kubectl create -f - <<EOF
+kind: PersistentVolume
 apiVersion: v1
-kind: ConfigMap
 metadata:
-  name: local-provisioner-config
-  namespace: default
-  labels:
-    heritage: "Tiller"
-    release: "release-name"
-    chart: provisioner-2.3.2
-data:
-  storageClassMap: |
-    local-storage:
-       hostDir: /mnt/disks
-       mountDir: /mnt/disks
-       blockCleanerCommand:
-         - "/scripts/shred.sh"
-         - "2"
-       volumeMode: Filesystem
-       fsType: tmpfs
----
-apiVersion: apps/v1
-kind: DaemonSet
-metadata:
-  name: local-volume-provisioner
-  namespace: default
-  labels:
-    app: local-volume-provisioner
-    heritage: "Tiller"
-    release: "release-name"
-    chart: provisioner-2.3.2
+  name: pv-volume1
 spec:
-  selector:
-    matchLabels:
-      app: local-volume-provisioner
-  template:
-    metadata:
-      labels:
-        app: local-volume-provisioner
-    spec:
-      serviceAccountName: local-storage-admin
-      containers:
-        - image: "quay.io/external_storage/local-volume-provisioner:v2.3.2"
-          name: provisioner
-          securityContext:
-            privileged: true
-          env:
-          - name: MY_NODE_NAME
-            valueFrom:
-              fieldRef:
-                fieldPath: spec.nodeName
-          - name: MY_NAMESPACE
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.namespace
-          - name: JOB_CONTAINER_IMAGE
-            value: "quay.io/external_storage/local-volume-provisioner:v2.3.2"
-          volumeMounts:
-            - mountPath: /etc/provisioner/config
-              name: provisioner-config
-              readOnly: true
-            - mountPath: /dev
-              name: provisioner-dev
-            - mountPath: /mnt/disks
-              name: disks
-              mountPropagation: "HostToContainer"
-      volumes:
-        - name: provisioner-config
-          configMap:
-            name: local-provisioner-config
-        - name: provisioner-dev
-          hostPath:
-            path: /dev
-        - name: disks
-          hostPath:
-            path: /mnt/disks
- 
+  storageClassName:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/pv1"
 ---
-# Source: provisioner/templates/provisioner-service-account.yaml
- 
+kind: PersistentVolume
 apiVersion: v1
-kind: ServiceAccount
 metadata:
-  name: local-storage-admin
-  namespace: default
-  labels:
-    heritage: "Tiller"
-    release: "release-name"
-    chart: provisioner-2.3.2
- 
+  name: pv-volume2
+spec:
+  storageClassName:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/pv2"
 ---
-# Source: provisioner/templates/provisioner-cluster-role-binding.yaml
- 
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
+kind: PersistentVolume
+apiVersion: v1
 metadata:
-  name: local-storage-provisioner-pv-binding
-  labels:
-    heritage: "Tiller"
-    release: "release-name"
-    chart: provisioner-2.3.2
-subjects:
-- kind: ServiceAccount
-  name: local-storage-admin
-  namespace: default
-roleRef:
-  kind: ClusterRole
-  name: system:persistent-volume-provisioner
-  apiGroup: rbac.authorization.k8s.io
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: local-storage-provisioner-node-clusterrole
-  labels:
-    heritage: "Tiller"
-    release: "release-name"
-    chart: provisioner-2.3.2
-rules:
-- apiGroups: [""]
-  resources: ["nodes"]
-  verbs: ["get"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: local-storage-provisioner-node-binding
-  labels:
-    heritage: "Tiller"
-    release: "release-name"
-    chart: provisioner-2.3.2
-subjects:
-- kind: ServiceAccount
-  name: local-storage-admin
-  namespace: default
-roleRef:
-  kind: ClusterRole
-  name: local-storage-provisioner-node-clusterrole
-  apiGroup: rbac.authorization.k8s.io
+  name: pv-volume3
+spec:
+  storageClassName:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/pv3"
 EOF
 ```
