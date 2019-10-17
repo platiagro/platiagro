@@ -1,6 +1,6 @@
 # Install guide on Ubuntu 18.04
 
-## Disable swap [Reference](https://www.tecmint.com/disable-swap-partition-in-centos-ubuntu/)
+## Disable swap -- [reference](https://www.tecmint.com/disable-swap-partition-in-centos-ubuntu/)
 
 ```shell
 sudo swapoff -a
