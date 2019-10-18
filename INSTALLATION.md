@@ -125,7 +125,6 @@ data:
          - "/scripts/shred.sh"
          - "2"
        volumeMode: Filesystem
-       fsType: tmpfs
 ---
 apiVersion: apps/v1
 kind: DaemonSet
