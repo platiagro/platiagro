@@ -30,14 +30,6 @@ sudo systemctl start docker
 sudo systemctl enable docker
 ```
 
-## Helm
-
-```shell
-wget https://github.com/kubeflow/kubeflow/releases/download/v0.6.2/kfctl_v0.6.2_linux.tar.gz
-tar -xvf kfctl_v0.6.2_linux.tar.gz
-sudo mv kfctl /usr/local/bin/kfctl
-```
-
 ## Kfctl
 
 ```shell
@@ -68,15 +60,6 @@ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=admin --user=kubelet --group=system:serviceaccounts
-```
-
-## Helm
-
-```shell
-kubectl taint nodes --all node-role.kubernetes.io/master-
-kubectl create serviceaccount --namespace kube-system tiller
-kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
-helm init --service-account tiller
 ```
 
 ## Create local persistent volume
