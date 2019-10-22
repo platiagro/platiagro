@@ -16,10 +16,10 @@ Ensure that you have a [Kubernetes Cluster](https://kubernetes.io/docs/setup/), 
 ## Install PlatIAgro
 
 ```shell
-export KFAPP="kubeflow"
+export APP="platiagro"
 export CONFIG="https://raw.githubusercontent.com/platiagro/kubeflow/platiagro/bootstrap/config/kfctl_platiagro.yaml"
-kfctl init ${KFAPP} --config=${CONFIG} -V
-cd ${KFAPP}
+kfctl init ${APP} --config=${CONFIG} -V
+cd ${APP}
 kubectl create namespace kubeflow-anonymous
 kubectl -n kubeflow-anonymous create serviceaccount default-editor
 kfctl generate all -V
@@ -35,7 +35,7 @@ Then visit: http://localhost:31380/
 To undeploy PlatIAgro, run:
 
 ```shell
-cd ${KFAPP}
+cd ${APP}
 kfctl delete all -V
 kubectl delete namespace istio-system
 kubectl delete namespace kubeflow-anonymous
