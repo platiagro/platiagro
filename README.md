@@ -7,17 +7,22 @@
 
 AI Platform for pushing Ag-Tech forward.
 
-----
+---
+**NOTE**
+
+As of today, Kubernetes version 1.14 is supported.
+
+---
 
 ## Requirements
 
-Ensure that you have a [Kubernetes Cluster](https://kubernetes.io/docs/setup/), [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl), [Helm](https://github.com/helm/helm/blob/master/docs/install.md) and [kfctl](https://www.kubeflow.org/docs/started/getting-started/#installing-command-line-tools) configured for running commands against the Kubernetes cluster.
+Ensure that you have a [Kubernetes Cluster](https://kubernetes.io/docs/setup/), [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl), and [kfctl](https://www.kubeflow.org/docs/started/getting-started/#installing-command-line-tools) configured for running commands against the Kubernetes cluster.
 
 ## Install PlatIAgro
 
 ```shell
 export APP="platiagro"
-export CONFIG="https://raw.githubusercontent.com/platiagro/kubeflow/platiagro/bootstrap/config/kfctl_platiagro.yaml"
+export CONFIG="https://raw.githubusercontent.com/platiagro/kubeflow/v0.0.1-kubeflow-v0.6.2/bootstrap/config/kfctl_platiagro.yaml"
 kfctl init ${APP} --config=${CONFIG} -V
 cd ${APP}
 kubectl create namespace kubeflow-anonymous
