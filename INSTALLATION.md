@@ -33,9 +33,9 @@ sudo systemctl enable docker
 ## Kfctl
 
 ```shell
-sudo apt install docker.io
-sudo systemctl start docker
-sudo systemctl enable docker
+wget https://github.com/kubeflow/kubeflow/releases/download/v0.6.2/kfctl_v0.6.2_linux.tar.gz
+tar -xvf kfctl_v0.6.2_linux.tar.gz
+sudo mv kfctl /usr/local/bin/kfctl
 ```
 
 ## Kubernetes
