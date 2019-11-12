@@ -18,7 +18,7 @@ Check if the swap area has been completely and permanently disabled in your syst
 
 ```shell
 free -h
-blkid 
+blkid
 lsblk
 ```
 
@@ -33,8 +33,8 @@ sudo systemctl enable docker
 ## Kfctl
 
 ```shell
-wget https://github.com/kubeflow/kubeflow/releases/download/v0.6.2/kfctl_v0.6.2_linux.tar.gz
-tar -xvf kfctl_v0.6.2_linux.tar.gz
+wget https://github.com/kubeflow/kubeflow/releases/download/v0.7.0/kfctl_v0.7.0_linux.tar.gz
+tar -xvf kfctl_v0.7.0_linux.tar.gz
 sudo mv kfctl /usr/local/bin/kfctl
 ```
 
@@ -85,9 +85,9 @@ metadata:
 provisioner: kubernetes.io/no-provisioner
 reclaimPolicy: Delete
 EOF
- 
+
 kubectl patch storageclass local-storage -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
- 
+
 cat <<EOF | kubectl apply -f -
 ---
 # Source: provisioner/templates/provisioner.yaml
@@ -165,10 +165,10 @@ spec:
         - name: disks
           hostPath:
             path: /mnt/disks
- 
+
 ---
 # Source: provisioner/templates/provisioner-service-account.yaml
- 
+
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -178,10 +178,10 @@ metadata:
     heritage: "Tiller"
     release: "release-name"
     chart: provisioner-2.3.2
- 
+
 ---
 # Source: provisioner/templates/provisioner-cluster-role-binding.yaml
- 
+
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
