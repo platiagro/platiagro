@@ -64,13 +64,14 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 
 ## Create local persistent volume
 
-Create volumes on the worker node
-
+Add the following bind mounts to `/etc/fstab`. **Then reboot the machine.**
 ```shell
-for i in `seq 1 100`; do
-  mkdir -p "/mnt/disks/vol-$i"
-  mount -t tmpfs -o size=20G "vol-$i" "/mnt/disks/vol-$i"
-done
+/l/disk0/disk-0                           /mnt/disks/disk-0       none    defaults,bind   0 0
+/l/disk0/disk-1                           /mnt/disks/disk-1       none    defaults,bind   0 0
+/l/disk0/disk-2                           /mnt/disks/disk-2       none    defaults,bind   0 0
+/l/disk0/disk-3                           /mnt/disks/disk-3       none    defaults,bind   0 0
+/l/disk0/disk-4                           /mnt/disks/disk-4       none    defaults,bind   0 0
+/l/disk0/disk-5                           /mnt/disks/disk-5       none    defaults,bind   0 0
 ```
 
 Create local-storage-class and set default
