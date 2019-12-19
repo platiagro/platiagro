@@ -43,7 +43,7 @@ sudo mv kfctl /usr/local/bin/kfctl
 ```shell
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
 sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
-sudo apt-get install kubeadm=1.14.4-00 kubelet=1.14.4-00 kubectl=1.14.4-00
+sudo apt-get install kubeadm=1.15.7-00 kubelet=1.15.7-00 kubectl=1.15.7-00
 ```
 
 # Init
