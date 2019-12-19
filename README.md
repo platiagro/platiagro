@@ -10,7 +10,7 @@ AI Platform for pushing Ag-Tech forward.
 ---
 **NOTE**
 
-As of today, Kubernetes version 1.14 is supported.
+As of today, Kubernetes versions 1.14 and 1.15 are supported.
 
 ---
 
@@ -28,8 +28,6 @@ export CONFIG_URI="https://raw.githubusercontent.com/platiagro/manifests/platiag
 mkdir -p ${KF_DIR}
 cd ${KF_DIR}
 kfctl apply -V -f ${CONFIG_URI}
-sudo docker pull platiagro/datascience-1386e2046833-notebook-cpu:v0.5.0
-curl "http://127.0.0.1:31380/kubeflow/api/workgroup/create" -H "content-type: application/json" --data '{"namespace":"anonymous"}'
 ```
 
 Then visit: http://localhost:31380/
