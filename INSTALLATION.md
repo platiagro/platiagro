@@ -230,3 +230,28 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 EOF
 ```
+
+## Create load balancer
+
+**Before running the command below, add the external IP address after `KUBEFLOW_MASTER_IP_ADDRESS=`**
+
+```shell
+kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.3/manifests/metallb.yaml
+
+export KUBEFLOW_MASTER_IP_ADDRESS=
+
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: metallb-system
+  name: config
+data:
+  config: |
+    address-pools:
+    - name: default
+      protocol: layer2
+      addresses:
+      - $KUBEFLOW_MASTER_IP_ADDRESS-$KUBEFLOW_MASTER_IP_ADDRESS
+EOF
+```
