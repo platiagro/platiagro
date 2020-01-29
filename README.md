@@ -28,6 +28,7 @@ export CONFIG_URI="https://raw.githubusercontent.com/platiagro/manifests/platiag
 mkdir -p ${KF_DIR}
 cd ${KF_DIR}
 kfctl apply -V -f ${CONFIG_URI}
+curl "http://127.0.0.1:31380/kubeflow/api/workgroup/create" -H "content-type: application/json" --data '{"namespace":"anonymous"}'
 ```
 
 Then visit: http://localhost:31380/

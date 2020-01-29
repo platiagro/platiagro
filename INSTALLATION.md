@@ -33,8 +33,8 @@ sudo systemctl enable docker
 ## Kfctl
 
 ```shell
-wget https://github.com/kubeflow/kubeflow/releases/download/v0.7.0/kfctl_v0.7.0_linux.tar.gz
-tar -xvf kfctl_v0.7.0_linux.tar.gz
+wget https://github.com/kubeflow/kfctl/releases/download/v1.0-rc.1/kfctl_v1.0-rc.1-0-g963c787_linux.tar.gz
+tar -xvf kfctl_v1.0-rc.1-0-g963c787_linux.tar.gz
 sudo mv kfctl /usr/local/bin/kfctl
 ```
 
