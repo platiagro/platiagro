@@ -10,7 +10,7 @@ AI Platform for pushing Ag-Tech forward.
 ---
 **NOTE**
 
-As of today, Kubernetes version 1.14 is supported.
+As of today, Kubernetes versions 1.14 and 1.15 are supported.
 
 ---
 
@@ -21,16 +21,14 @@ Ensure that you have a [Kubernetes Cluster](https://kubernetes.io/docs/setup/), 
 ## Install PlatIAgro
 
 ```shell
-export APP="platiagro"
-export CONFIG="https://raw.githubusercontent.com/platiagro/kubeflow/v0.0.1-kubeflow-v0.6.2/bootstrap/config/kfctl_platiagro.yaml"
-kfctl init ${APP} --config=${CONFIG} -V
-cd ${APP}
-kubectl create namespace kubeflow-anonymous
-kubectl -n kubeflow-anonymous create serviceaccount default-editor
-kfctl generate all -V
-kfctl apply all -V
-sudo docker pull platiagro/datascience-notebook
-sudo docker pull platiagro/autosklearn-notebook
+export KF_NAME=platiagro
+export BASE_DIR=$(pwd)
+export KF_DIR=${BASE_DIR}/${KF_NAME}
+export CONFIG_URI="https://raw.githubusercontent.com/platiagro/manifests/v0.0.1-kubeflow-v1.0-branch/kfdef/kfctl_platiagro.v0.0.1.yaml"
+mkdir -p ${KF_DIR}
+cd ${KF_DIR}
+kfctl apply -V -f ${CONFIG_URI}
+curl "http://127.0.0.1:31380/kubeflow/api/workgroup/create" -H "content-type: application/json" --data '{"namespace":"anonymous"}'
 ```
 
 Then visit: http://localhost:31380/
@@ -40,10 +38,11 @@ Then visit: http://localhost:31380/
 To undeploy PlatIAgro, run:
 
 ```shell
-cd ${APP}
-kfctl delete all -V
-kubectl delete namespace istio-system
-kubectl delete namespace kubeflow-anonymous
+export CONFIG_FILE=${KF_DIR}/kfctl_platiagro.v0.0.1.yaml
+cd ${KF_DIR}
+kfctl delete -f ${CONFIG_FILE}
+kubectl delete profile --all
+kubectl delete namespace istio-system knative-serving
 ```
 
 ## Troubles
