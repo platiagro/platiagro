@@ -29,35 +29,6 @@ export CONFIG_URI="https://raw.githubusercontent.com/platiagro/manifests/v0.0.1-
 mkdir -p ${KF_DIR}
 cd ${KF_DIR}
 kfctl apply -V -f ${CONFIG_URI}
-curl "http://127.0.0.1:31380/kubeflow/api/workgroup/create" -H "content-type: application/json" --data '{"namespace":"anonymous"}'
-curl -X POST "http://127.0.0.1:31380/jupyter/api/namespaces/anonymous/notebooks" \
--H "content-type: application/json" \
---data-binary @- << EOF
-{
-    "name": "server",
-    "namespace": "anonymous",
-    "image": "platiagro/datascience-1386e2046833-notebook-cpu:v0.5.0",
-    "customImage": "",
-    "customImageCheck": false,
-    "cpu": "0.5",
-    "memory": "1.0Gi",
-    "noWorkspace": false,
-    "workspace": {
-        "type": "New",
-        "name": "workspace-server",
-        "templatedName": "workspace-{notebook-name}",
-        "size": "10Gi",
-        "mode": "ReadWriteOnce",
-        "class": "{none}",
-        "extraFields": {}
-    },
-    "datavols": [],
-    "extra": "{}",
-    "shm": true,
-    "docker": true,
-    "configurations": []
-}
-EOF
 ```
 
 Then visit: http://localhost:31380/
@@ -71,7 +42,7 @@ export CONFIG_FILE=${KF_DIR}/kfctl_platiagro.v0.0.1.yaml
 cd ${KF_DIR}
 kfctl delete -f ${CONFIG_FILE}
 kubectl delete profile --all
-kubectl delete namespace istio-system knative-serving
+kubectl delete namespace istio-system
 ```
 
 ## Troubles
