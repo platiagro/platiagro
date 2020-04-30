@@ -18,7 +18,7 @@ Check if the swap area has been completely and permanently disabled in your syst
 
 ```shell
 free -h
-blkid 
+blkid
 lsblk
 ```
 
@@ -33,8 +33,8 @@ sudo systemctl enable docker
 ## Kfctl
 
 ```shell
-wget https://github.com/kubeflow/kubeflow/releases/download/v0.6.2/kfctl_v0.6.2_linux.tar.gz
-tar -xvf kfctl_v0.6.2_linux.tar.gz
+wget https://github.com/kubeflow/kfctl/releases/download/v1.0-rc.4/kfctl_v1.0-rc.3-1-g24b60e8_linux.tar.gz
+tar -xvf kfctl_v1.0-rc.3-1-g24b60e8_linux.tar.gz
 sudo mv kfctl /usr/local/bin/kfctl
 ```
 
@@ -43,7 +43,7 @@ sudo mv kfctl /usr/local/bin/kfctl
 ```shell
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
 sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
-sudo apt-get install kubeadm=1.14.4-00 kubelet=1.14.4-00 kubectl=1.14.4-00
+sudo apt-get install kubeadm=1.15.7-00 kubelet=1.15.7-00 kubectl=1.15.7-00
 ```
 
 # Init
@@ -65,13 +65,14 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 
 ## Create local persistent volume
 
-Create volumes on the worker node
-
+Add the following bind mounts to `/etc/fstab`. **Then reboot the machine.**
 ```shell
-for i in `seq 1 100`; do
-  mkdir -p "/mnt/disks/vol-$i"
-  mount -t tmpfs -o size=20G "vol-$i" "/mnt/disks/vol-$i"
-done
+/l/disk0/disk-0                           /mnt/disks/disk-0       none    defaults,bind   0 0
+/l/disk0/disk-1                           /mnt/disks/disk-1       none    defaults,bind   0 0
+/l/disk0/disk-2                           /mnt/disks/disk-2       none    defaults,bind   0 0
+/l/disk0/disk-3                           /mnt/disks/disk-3       none    defaults,bind   0 0
+/l/disk0/disk-4                           /mnt/disks/disk-4       none    defaults,bind   0 0
+/l/disk0/disk-5                           /mnt/disks/disk-5       none    defaults,bind   0 0
 ```
 
 Create local-storage-class and set default
@@ -85,9 +86,9 @@ metadata:
 provisioner: kubernetes.io/no-provisioner
 reclaimPolicy: Delete
 EOF
- 
+
 kubectl patch storageclass local-storage -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
- 
+
 cat <<EOF | kubectl apply -f -
 ---
 # Source: provisioner/templates/provisioner.yaml
@@ -165,10 +166,10 @@ spec:
         - name: disks
           hostPath:
             path: /mnt/disks
- 
+
 ---
 # Source: provisioner/templates/provisioner-service-account.yaml
- 
+
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -178,10 +179,10 @@ metadata:
     heritage: "Tiller"
     release: "release-name"
     chart: provisioner-2.3.2
- 
+
 ---
 # Source: provisioner/templates/provisioner-cluster-role-binding.yaml
- 
+
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -228,5 +229,30 @@ roleRef:
   kind: ClusterRole
   name: local-storage-provisioner-node-clusterrole
   apiGroup: rbac.authorization.k8s.io
+EOF
+```
+
+## Create load balancer
+
+**Before running the command below, add the external IP address after `KUBEFLOW_MASTER_IP_ADDRESS=`**
+
+```shell
+kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.3/manifests/metallb.yaml
+
+export KUBEFLOW_MASTER_IP_ADDRESS=
+
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: metallb-system
+  name: config
+data:
+  config: |
+    address-pools:
+    - name: default
+      protocol: layer2
+      addresses:
+      - $KUBEFLOW_MASTER_IP_ADDRESS-$KUBEFLOW_MASTER_IP_ADDRESS
 EOF
 ```
