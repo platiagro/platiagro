@@ -2,9 +2,15 @@ id: platiagro
 
 # Tutorial de utilização da plataforma
 
-## Overview
+## Visão geral
 
-[TODO]
+### Introdução
+
+A PlatIAgro é uma plataforma de IA voltada para os temas relacionados ao agronegócio. Sua missão é oferecer um ambiente facilitador do desenvolvimento e implantação de modelos estatísticos ou matemáticos que introduzam inteligência nos processos.
+
+### O que você aprenderá
+
+Sobre todas as funcionalidades que a plataforma possui.
 
 ## Listar tarefas
 
@@ -45,6 +51,40 @@ id: platiagro
 4. Será aberto uma nova aba no navegador contento os Notebooks da tarefa selecionada para edição.
    ![A screenshot of notebooks page.](assets/tarefas/editar-tarefa-notebook.png)
 
+## Alterar nome e descrição da Tarefa
+
+1. Clique na aba **Tarefas** do menu.
+   ![A screenshot of welcome page. Button "Tarefas" is highlighted.](assets/tarefas/home.png)
+
+2. O usuário será redirecionado para a página das tarefas, onde será listado todas as tarefas existentes.
+   ![A screenshot of tasks page.](assets/tarefas/alterar-tarefa-lista.png)
+
+3. Selecione qual tarefa deseja alterar, clicando no botão **Alterar Nome e Descrição**.
+   ![A screenshot of tasks page. Button "Alterar Nome e Descrição" is highlighted.](assets/tarefas/alterar-tarefa-botao.png)
+
+4. Será aberto um modal. Altere o nome e descrição como desejar.
+   ![A screenshot of change task modal.](assets/tarefas/alterar-tarefa-modal.png)
+
+5. Clique no botão **Confirmar** para salvar as alteração feitas na tarefa.
+   ![A screenshot of change task modal. Button "Confirmar" is highlighted.](assets/tarefas/alterar-tarefa-modal-botao.png)
+
+## Excluir Tarefa
+
+1. Clique na aba **Tarefas** do menu.
+   ![A screenshot of welcome page. Button "Tarefas" is highlighted.](assets/tarefas/home.png)
+
+2. O usuário será redirecionado para a página das tarefas, onde será listado todas as tarefas existentes.
+   ![A screenshot of tasks page.](assets/tarefas/excluir-tarefa-lista.png)
+
+3. Selecione qual tarefa deseja excluir, clicando no botão **Excluir**.
+   ![A screenshot of tasks page. Button "Excluir" is highlighted.](assets/tarefas/excluir-tarefa-botao.png)
+
+4. Será aberto uma pop-up.
+   ![A screenshot of delete task pop-up.](assets/tarefas/excluir-tarefa-pop-up.png)
+
+5. Clique no botão **Sim** para confirmar a exclusão da tarefa.
+   ![A screenshot of delete task pop-up.  Button "Sim" is highlighted.](assets/tarefas/excluir-tarefa-pop-up-botao.png)
+
 ## Listar projetos
 
 1. Clique na aba **Projetos** do menu.
@@ -70,15 +110,52 @@ id: platiagro
 5. O usuário será redirecionado para a página de experimentos do projeto
    ![A screenshot of experiments page.](assets/projetos/experimentos.png)
 
-## Listar experimentos
+## Alterar nome do Projeto
 
-1. Clique na aba **Projetos** do menu
+1. Clique na aba **Projetos** do menu.
    ![A screenshot of welcome page. Button "Projetos" is highlighted.](assets/projetos/home.png)
 
-2. O usuário será redirecionado para a página dos projetos, onde será listado todas os projetos existentes
+2. O usuário será redirecionado para a página dos projetos, onde será listado todas os projetos existentes.
    ![A screenshot of projects page.](assets/projetos/projetos.png)
 
-3. Selecione qual projeto deseja listar os experimentos, clicando no nome do projeto
+3. Selecione qual projeto deseja alterar o nome, clicando no nome do projeto.
+   ![A screenshot of projects page. One project is highlighted.](assets/projetos/projetos-lista.png)
+
+4. O usuário será redirecionado para a página de experimentos do projeto selecionado.
+   ![A screenshot of experiments page.](assets/projetos/experimentos.png)
+
+5. Clique no botão de **Lápis** para alterar o nome.
+   ![A screenshot of experiments page. Button "Pencil" is highlighted.](assets/projetos/alterar-nome-projeto-botao.png)
+
+6. Altere o nome do projeto como desejar e tecle **Enter** para salvar sua alteração.
+   ![A screenshot of experiments page changin project name.](assets/projetos/alterar-nome-projeto-alterar.png)
+
+## Excluir Projeto
+
+1. Clique na aba **Projetos** do menu.
+   ![A screenshot of welcome page. Button "Projetos" is highlighted.](assets/projetos/home.png)
+
+2. O usuário será redirecionado para a página dos projetos, onde será listado todas os projetos existentes.
+   ![A screenshot of projects page.](assets/projetos/projetos.png)
+
+3. Selecione qual projeto deseja excluir, clicando no botão **Excluir**.
+   ![A screenshot of projects page. Button "Excluir" is highlighted.](assets/projetos/excluir-projeto-botao.png)
+
+4. Será aberto uma pop-up.
+   ![A screenshot of delete project pop-up.](assets/projetos/excluir-projeto-pop-up.png)
+
+5. Clique no botão **Sim** para confirmar a exclusão do projeto.
+   ![A screenshot of delete project pop-up.  Button "Sim" is highlighted.](assets/projetos/excluir-projeto-pop-up-botao.png)
+
+## Listar experimentos
+
+1. Clique na aba **Projetos** do menu.
+   ![A screenshot of welcome page. Button "Projetos" is highlighted.](assets/projetos/home.png)
+
+2. O usuário será redirecionado para a página dos projetos, onde será listado todas os projetos existentes.
+   ![A screenshot of projects page.](assets/projetos/projetos.png)
+
+3. Selecione qual projeto deseja listar os experimentos, clicando no nome do projeto.
    ![A screenshot of projects page. One project is highlighted.](assets/projetos/projetos-lista.png)
 
 4. O usuário será redirecionado para a página de experimentos do projeto selecionado
@@ -86,26 +163,75 @@ id: platiagro
 
 ## Criar novo experimento
 
-1. Clique na aba **Projetos** do menu
+1. Clique na aba **Projetos** do menu.
    ![A screenshot of welcome page. Button "Projetos" is highlighted.](assets/projetos/home.png)
 
-2. O usuário será redirecionado para a página dos projetos, onde será listado todas os projetos existentes
+2. O usuário será redirecionado para a página dos projetos, onde será listado todas os projetos existentes.
    ![A screenshot of projects page.](assets/projetos/projetos.png)
 
-3. Selecione qual projeto deseja criar um novo experimento, clicando no nome do projeto
+3. Selecione qual projeto deseja criar um novo experimento, clicando no nome do projeto.
    ![A screenshot of projects page. One project is highlighted.](assets/projetos/projetos-lista.png)
 
-4. O usuário será redirecionado para a página de experimentos do projeto selecionado
+4. O usuário será redirecionado para a página de experimentos do projeto selecionado.
    ![A screenshot of experiments page.](assets/projetos/experimentos.png)
 
-5. Clique no botão **+**
+5. Clique no botão **+**.
    ![A screenshot of experiments page. Button "+" is highlighted.](assets/projetos/experimentos-criar.png)
 
-6. Será aberto um modal
+6. Será aberto um modal.
    ![A screenshot of new experiment modal.](assets/projetos/experimentos-criar-modal.png)
 
-7. Escolha um nome para o experimento e clique no botão **Criar**
+7. Escolha um nome para o experimento e clique no botão **Criar**.
    ![A screenshot of new experiment modal. Button "Criar" is highlighted.](assets/projetos/experimentos-criar-modal-botao.png)
+
+## Alterar nome do Experimento
+
+1. Clique na aba **Projetos** do menu.
+   ![A screenshot of welcome page. Button "Projetos" is highlighted.](assets/projetos/home.png)
+
+2. O usuário será redirecionado para a página dos projetos, onde será listado todas os projetos existentes.
+   ![A screenshot of projects page.](assets/projetos/projetos.png)
+
+3. Selecione o projeto desejado, clicando no nome do projeto.
+   ![A screenshot of projects page. One project is highlighted.](assets/projetos/projetos-lista.png)
+
+4. O usuário será redirecionado para a página de experimentos do projeto selecionado.
+   ![A screenshot of experiments page.](assets/projetos/experimentos.png)
+
+5. Selecione qual experimento deseja alterar o nome, clicando no nome do experimento.
+   ![A screenshot of experiments page. One experiment is highlighted.](assets/projetos/experimentos-lista.png)
+
+6. Clique no botão de **Lápis** para alterar o nome.
+   ![A screenshot of experiments page. Button "Pencil" is highlighted.](assets/projetos/alterar-nome-experimentos-botao.png)
+
+7. Altere o nome do experimento como desejar e tecle **Enter** para salvar sua alteração.
+   ![A screenshot of experiments page changing experiment name.](assets/projetos/alterar-nome-experimentos-alterar.png)
+
+## Excluir Experimento
+
+1. Clique na aba **Projetos** do menu.
+   ![A screenshot of welcome page. Button "Projetos" is highlighted.](assets/projetos/home.png)
+
+2. O usuário será redirecionado para a página dos projetos, onde será listado todas os projetos existentes.
+   ![A screenshot of projects page.](assets/projetos/projetos.png)
+
+3. Selecione o projeto desejado, clicando no nome do projeto.
+   ![A screenshot of projects page. One project is highlighted.](assets/projetos/projetos-lista.png)
+
+4. O usuário será redirecionado para a página de experimentos do projeto selecionado.
+   ![A screenshot of experiments page.](assets/projetos/experimentos.png)
+
+5. Selecione qual experimento deseja excluir, clicando no nome do experimento.
+   ![A screenshot of experiments page. One experiment is highlighted.](assets/projetos/experimentos-lista.png)
+
+6. Clique no botão de **Lixeira** para excluir o experimento.
+   ![A screenshot of experiment page. Button "Dump" is highlighted.](assets/projetos/excluir-experimento-botao.png)
+
+7. Será aberto uma pop-up.
+   ![A screenshot of delete experiment pop-up.](assets/projetos/excluir-experimento-pop-up.png)
+
+8. Clique no botão **Sim** para confirmar a exclusão do experimento.
+   ![A screenshot of delete experiment pop-up.  Button "Sim" is highlighted.](assets/projetos/excluir-experimento-pop-up-botao.png)
 
 ## Montar/Executar experimento
 
@@ -174,10 +300,40 @@ id: platiagro
 9. Após terminar a execução de uma tarefa, sua caixa muda de cor(Verde se deu certo ou Vermelho se deu errado).
    ![A screenshot of experiment flow executed.](assets/projetos/experimento-fluxo-executado.png)
 
-### Dicas
+## Salvar template do Experimento
 
-- Se o seu "alvo" é "Categorical", tem que terminar com um "Classifier" ou Logistic Regression.
-- Se o seu "alvo" é "Numerical", tem que terminar com um "Regression",menos o Logistic Regression.
+1. Clique na aba **Projetos** do menu.
+   ![A screenshot of welcome page. Button "Projetos" is highlighted.](assets/projetos/home.png)
+
+2. O usuário será redirecionado para a página dos projetos, onde será listado todas os projetos existentes.
+   ![A screenshot of projects page.](assets/projetos/projetos.png)
+
+3. Selecione o projeto desejado, clicando no nome do projeto.
+   ![A screenshot of projects page. One project is highlighted.](assets/projetos/projetos-lista.png)
+
+4. O usuário será redirecionado para a página de experimentos do projeto selecionado.
+   ![A screenshot of experiments page.](assets/projetos/experimentos.png)
+
+5. Selecione um experimento, clicando no nome do experimento.
+   ![A screenshot of experiments page. One experiment is highlighted.](assets/projetos/experimentos-lista.png)
+
+6. Após selecionado o experimento, o usuário estará habilitado para a montagem do fluxo.
+   ![A screenshot of experiment flow.](assets/projetos/experimento-fluxo.png)
+
+7. Para monta o fluxo, basta clicar nas tarefas desejadas.
+   ![A screenshot of experiment flow. Tasks is highlighted.](assets/projetos/experimento-fluxo-tarefas.png)
+
+8. Após clicar em uma tarefa, ela é adicionada automaticamente no fluxo.
+   ![A screenshot of experiment flow with two tasks.](assets/projetos/experimento-fluxo-nova-tarefa.png)
+
+9. Clique no botão **Salvar Template**.
+   ![A screenshot of experiments page. Button "Salvar Template" is highlighted.](assets/projetos/salvar-template-botao.png)
+
+10. Será aberto um modal.
+    ![A screenshot of save template modal.](assets/projetos/salvar-template-modal.png)
+
+11. Escolha um nome para o template e clique no botão **Salvar**.
+    ![A screenshot of save template modal. Button "Salvar" is highlighted.](assets/projetos/salvar-template-modal-botao.png)
 
 ## Implantar um experimento
 
