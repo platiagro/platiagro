@@ -24,14 +24,14 @@ jobs:
       - name: Step 2
         run: |
           sudo bash -c 'cat <<EOF > /etc/vpnc/vpnc.conf
-          IPSec gateway $VPN_GATEWAY
-          IPSec ID $VPN_IPSEC_ID
-          IPSec secret $VPN_IPSEC_SECRET
+          IPSec gateway ${{secrets.VPN_GATEWAY}}
+          IPSec ID ${{secrets.VPN_IPSEC_ID}}
+          IPSec secret ${{secrets.VPN_IPSEC_SECRET}}
           IKE Authmode psk
           IKE DH Group dh2
           NAT Traversal Mode natt
-          Xauth username $VPN_USERNAME
-          Xauth password $VPN_PASSWORD
+          Xauth username ${{secrets.VPN_USERNAME}}
+          Xauth password ${{secrets.VPN_PASSWORD}}
           Domain aquarius.cpqd.com.br
           Domain cpqd.com.br
           Perfect Forward Secrecy server
