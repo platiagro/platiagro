@@ -1,0 +1,26 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Python application
+
+on:
+  push:
+    branches: [feature/deploy-on-cpqd]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install VPNC
+        run: |
+          apt-get install vpnc
+        env:
+          VPN_GATEWAY: ${{secrets.VPN_GATEWAY}}
+          #VPN_IPSEC_ID: ${{ secrets.VPN_IPSEC_ID }}
+          #VPN_IPSEC_SECRET: ${{ secrets.VPN_IPSEC_SECRET }}
+          VPN_USERNAME: ${{secrets.VPN_USERNAME}}
+          VPN_PASSWORD: ${{secrets.VPN_PASSWORD}}
+      - name: Step 2
+        run: |
+          ping 10.50.11.165
