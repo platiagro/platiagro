@@ -14,13 +14,29 @@ jobs:
     steps:
       - name: Install VPNC
         run: |
-          sudo apt-get install vpnc
+          sudo apt-get install vpnc network-manager-vpnc network-manager-vpnc-gnome
         env:
           VPN_GATEWAY: ${{secrets.VPN_GATEWAY}}
-          #VPN_IPSEC_ID: ${{ secrets.VPN_IPSEC_ID }}
-          #VPN_IPSEC_SECRET: ${{ secrets.VPN_IPSEC_SECRET }}
+          VPN_IPSEC_ID: ${{secrets.VPN_IPSEC_ID}}
+          VPN_IPSEC_SECRET: ${{secrets.VPN_IPSEC_SECRET}}
           VPN_USERNAME: ${{secrets.VPN_USERNAME}}
           VPN_PASSWORD: ${{secrets.VPN_PASSWORD}}
       - name: Step 2
+        run: |
+          cat <<EOF >/etc/vpnc.conf
+          IPSec gateway $VPN_GATEWAY
+          IPSec ID $VPN_IPSEC_ID
+          IPSec secret $VPN_IPSEC_SECRET
+          IKE Authmode psk
+          IKE DH Group dh2
+          NAT Traversal Mode natt
+          Xauth username $VPN_USERNAME
+          Xauth password $VPN_PASSWORD
+          Domain aquarius.cpqd.com.br
+          Domain cpqd.com.br
+          Perfect Forward Secrecy server
+          No Detach
+          EOF
+      - name: Step 3
         run: |
           ping 10.50.11.165
