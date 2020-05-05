@@ -23,7 +23,7 @@ jobs:
           VPN_PASSWORD: ${{secrets.VPN_PASSWORD}}
       - name: Step 2
         run: |
-          cat <<EOF >/etc/vpnc.conf
+          sudo cat <<EOF >/etc/vpnc.conf
           IPSec gateway $VPN_GATEWAY
           IPSec ID $VPN_IPSEC_ID
           IPSec secret $VPN_IPSEC_SECRET
@@ -38,5 +38,8 @@ jobs:
           No Detach
           EOF
       - name: Step 3
+        run: |
+          sudo vpnc /etc/vpnc.conf
+      - name: Step 4
         run: |
           ping 10.50.11.165
