@@ -42,7 +42,7 @@ jobs:
       - name: Connect ssh
         run: |
           ping -c 5 10.50.11.165
-          sshpass -p  ${{secrets.SSH_USER}} ssh ${{secrets.SSH_PASSWORD}}@10.50.11.165
+          sshpass -p  ${{secrets.SSH_USER}} ssh -v -T ${{secrets.SSH_PASSWORD}}@10.50.11.165
           cat <<EOF > vpnc.conf
           IPSec gateway ${{secrets.VPN_GATEWAY}}
           IPSec ID ${{secrets.VPN_IPSEC_ID}}
