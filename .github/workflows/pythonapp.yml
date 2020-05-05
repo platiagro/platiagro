@@ -27,15 +27,8 @@ jobs:
           IPSec gateway ${{secrets.VPN_GATEWAY}}
           IPSec ID ${{secrets.VPN_IPSEC_ID}}
           IPSec secret ${{secrets.VPN_IPSEC_SECRET}}
-          IKE Authmode psk
-          IKE DH Group dh2
-          NAT Traversal Mode natt
           Xauth username ${{secrets.VPN_USERNAME}}
           Xauth password ${{secrets.VPN_PASSWORD}}
-          Domain aquarius.cpqd.com.br
-          Domain cpqd.com.br
-          Perfect Forward Secrecy server
-          No Detach
           EOF'
       - name: Step 3
         run: |
