@@ -23,7 +23,8 @@ jobs:
           VPN_PASSWORD: ${{secrets.VPN_PASSWORD}}
       - name: Step 2
         run: |
-          sudo cat <<EOF >/etc/vpnc.conf
+          sudo su
+          cat <<EOF >/etc/vpnc.conf
           IPSec gateway $VPN_GATEWAY
           IPSec ID $VPN_IPSEC_ID
           IPSec secret $VPN_IPSEC_SECRET
