@@ -1,7 +1,4 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
-
-name: Python application
+name: Platiagro deploy
 
 on:
   push:
@@ -27,7 +24,7 @@ jobs:
       - name: Connect to VPN
         run: |
           sudo vpnc vpnc
-      - name: Install platiagro
+      - name: Install Platiagro
         uses: appleboy/ssh-action@master
         with:
           host: 10.50.11.165
