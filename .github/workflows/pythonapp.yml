@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Install VPNC
         run: |
-          apt-get install vpnc
+          sudo apt-get install vpnc
         env:
           VPN_GATEWAY: ${{secrets.VPN_GATEWAY}}
           #VPN_IPSEC_ID: ${{ secrets.VPN_IPSEC_ID }}
