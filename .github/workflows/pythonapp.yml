@@ -39,13 +39,12 @@ jobs:
             sudo docker system prune -a --volumes -f
             sudo rm -rf /l/disk0 /home/cpqd/platiagro
             for i in `seq 0 29`; do sudo mkdir -p "/l/disk0/disk-$i"; done
-            cat images.txt|xargs -L 1 sudo docker pull
             export KUBEFLOW_MASTER_IP_ADDRESS=$(ifconfig|grep -Po 10.50.11.[0-9]+|head -n 1)
 
             sudo sysctl net.bridge.bridge-nf-call-iptables=1
             sudo kubeadm init
 
-            rm -rf $HOME/.kube
+            sudo rm -rf $HOME/.kube
             mkdir -p $HOME/.kube
             sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
             sudo chown $(id -u):$(id -g) $HOME/.kube/config
