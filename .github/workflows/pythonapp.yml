@@ -21,7 +21,7 @@ jobs:
           VPN_IPSEC_SECRET: ${{secrets.VPN_IPSEC_SECRET}}
           VPN_USERNAME: ${{secrets.VPN_USERNAME}}
           VPN_PASSWORD: ${{secrets.VPN_PASSWORD}}
-      - name: Step 2
+      - name: Create VPN Configuration File
         run: |
           sudo bash -c 'cat <<EOF > /etc/vpnc/vpnc.conf
           IPSec gateway ${{secrets.VPN_GATEWAY}}
@@ -30,9 +30,12 @@ jobs:
           Xauth username ${{secrets.VPN_USERNAME}}
           Xauth password ${{secrets.VPN_PASSWORD}}
           EOF'
-      - name: Step 3
+      - name: Connect to VPN
         run: |
           sudo vpnc vpnc
-      - name: Step 4
+      - name: Try to ping
         run: |
-          ping 10.50.11.165
+          ping -c 5 10.50.11.165
+      - name: Disconnect to VPN
+        run: |
+          sudo vpnc-disconnect
