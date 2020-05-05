@@ -27,19 +27,22 @@ jobs:
       - name: Connect to VPN
         run: |
           sudo vpnc vpnc
-      - name: Connect ssh
-        run: |
-          ping -c 5 10.50.11.165
-          ssh-keygen -R 10.50.11.165
-          sshpass -p  ${{secrets.SSH_USER}} ssh -v -T ${{secrets.SSH_PASSWORD}}@10.50.11.165
-          cat <<EOF > vpnc.conf
-          IPSec gateway ${{secrets.VPN_GATEWAY}}
-          IPSec ID ${{secrets.VPN_IPSEC_ID}}
-          IPSec secret ${{secrets.VPN_IPSEC_SECRET}}
-          Xauth username ${{secrets.VPN_USERNAME}}
-          Xauth password ${{secrets.VPN_PASSWORD}}
-          EOF
-          exit
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: 10.50.11.165
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          script: |
+            ls -a
+            cat <<EOF > vpnc.conf
+            IPSec gateway ${{secrets.VPN_GATEWAY}}
+            IPSec ID ${{secrets.VPN_IPSEC_ID}}
+            IPSec secret ${{secrets.VPN_IPSEC_SECRET}}
+            Xauth username ${{secrets.VPN_USERNAME}}
+            Xauth password ${{secrets.VPN_PASSWORD}}
+            EOF
       - name: Disconnect to VPN
         run: |
           sudo vpnc-disconnect
