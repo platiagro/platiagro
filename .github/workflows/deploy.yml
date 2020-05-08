@@ -39,7 +39,7 @@ jobs:
       - name: Install Platiagro
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ teste_env }}
+          host: ${teste_env}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           port: 22
