@@ -32,9 +32,19 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: 22
           script: |
-            virsh start platia-automation
-            sleep 120
             sudo virt-cat -d platia-automation /home/cpqd/ifconfig.info
+            VM_IP=$(sudo virt-cat -d platia-automation /home/cpqd/ifconfig.info | grep 'inet' | cut -d: -f2 | awk '{print $2}')
+            echo ${VM_IP}
+            echo "::set-env name=teste_env::${VM_IP}"
+      - name: Install Platiagro
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ teste_env }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          script: |
+            ifconfig
       - name: Disconnect to VPN
         run: |
           sudo vpnc-disconnect
