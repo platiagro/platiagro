@@ -32,7 +32,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: 22
           script: |
-            virsh console platia-automation --force
+            virsh console platia-automation --force >/dev/tty 2>&1
             VM_IP=$(ifconfig ens3 | grep 'inet' | cut -d: -f2 | awk '{print $2}')
             echo ${VM_IP}
       - name: Disconnect to VPN
