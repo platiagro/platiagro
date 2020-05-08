@@ -33,13 +33,18 @@ jobs:
           port: 22
           command_timeout: 50m
           script: |
-            sudo virt-clone --original=platia-automation --name=teste --file=/var/lib/libvirt/images/teste.qcow2
-            virsh start teste
-            virsh destroy teste
-            virsh start teste
+            VM_NAME=$(printf 'github-%(%Y-%m-%d-%H:%M:%S)T\n' -1)
+            echo ${VM_NAME}
+            sudo virt-clone --original=platia-automation --name=${VM_NAME} --file=/var/lib/libvirt/images/${VM_NAME}.qcow2
+            sleep 60
+            virsh start ${VM_NAME}
             sleep 120
-            sudo virt-cat -d teste /home/cpqd/ifconfig.info
-            VM_IP=$(sudo virt-cat -d teste /home/cpqd/ifconfig.info | grep 'inet' | cut -d: -f2 | awk '{print $2}')
+            virsh destroy ${VM_NAME}
+            sleep 60
+            virsh start ${VM_NAME}
+            sleep 120
+            sudo virt-cat -d ${VM_NAME} /home/cpqd/ifconfig.info
+            VM_IP=$(sudo virt-cat -d ${VM_NAME} /home/cpqd/ifconfig.info | grep 'inet' | cut -d: -f2 | awk '{print $2}')
             echo ${VM_IP}
       - name: Disconnect to VPN
         run: |
