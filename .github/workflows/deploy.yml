@@ -31,7 +31,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           port: 22
-          command_timeout: 55m
+          command_timeout: 50m
           script: |
             VM_NAME=$(printf 'github-%(%Y-%m-%d-%H:%M:%S)T\n' -1)
             echo ${VM_NAME}
