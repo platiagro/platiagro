@@ -24,7 +24,7 @@ jobs:
       - name: Connect to VPN
         run: |
           sudo vpnc vpnc
-      - name: Install Platiagro
+      - name: Create Platiagro VM
         uses: appleboy/ssh-action@master
         with:
           host: 10.50.11.163
@@ -32,21 +32,14 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: 22
           script: |
-            sudo virt-cat -d platia-automation /home/cpqd/ifconfig.info
-            VM_IP=$(sudo virt-cat -d platia-automation /home/cpqd/ifconfig.info | grep 'inet' | cut -d: -f2 | awk '{print $2}')
+            sudo virt-clone --original=platia-automation --name=teste --file=/var/lib/libvirt/images/teste.qcow2
+            virsh start teste
+            virsh destroy teste
+            virsh start teste
+            sleep 120
+            sudo virt-cat -d teste /home/cpqd/ifconfig.info
+            VM_IP=$(sudo virt-cat -d teste /home/cpqd/ifconfig.info | grep 'inet' | cut -d: -f2 | awk '{print $2}')
             echo ${VM_IP}
-            echo "::set-env name=teste_env::${VM_IP}"
-      - name: Install Platiagro
-        uses: appleboy/ssh-action@master
-        with:
-          host: 10.50.11.163
-          username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          port: 22
-          script: |
-            ifconfig
-            echo ${teste_env}
-            echo $teste_env
       - name: Disconnect to VPN
         run: |
           sudo vpnc-disconnect
