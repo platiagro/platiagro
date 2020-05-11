@@ -44,7 +44,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: 22
           script: |
-            echo $VM_NAME
+            echo ${VM_NAME}
       - name: Disconnect to VPN
         run: |
           sudo vpnc-disconnect
