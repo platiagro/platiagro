@@ -39,7 +39,6 @@ jobs:
           command_timeout: 50m
           script: |
             VM_NAME=${{ steps.vars.outputs.VM_NAME }}
-            echo ${VM_NAME}
             sudo virt-clone --original=platia-automation --name=${VM_NAME} --file=/var/lib/libvirt/images/${VM_NAME}.qcow2
       - name: Start Platiagro VM
         uses: appleboy/ssh-action@master
@@ -50,10 +49,6 @@ jobs:
           port: 22
           script: |
             VM_NAME=${{ steps.vars.outputs.VM_NAME }}
-            echo ${VM_NAME}
-            virsh start ${VM_NAME}
-            sleep 60
-            virsh destroy ${VM_NAME}
             virsh start ${VM_NAME}
             sleep 120
             VM_IP=$(sudo virt-cat -d ${VM_NAME} /home/cpqd/ifconfig.info | grep 'inet' | cut -d: -f2 | awk '{print $2}')
