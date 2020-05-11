@@ -25,7 +25,6 @@ jobs:
         run: |
           sudo vpnc vpnc
       - name: Create Platiagro VM
-        id: create_vm
         uses: appleboy/ssh-action@master
         with:
           host: 10.50.11.163
@@ -36,7 +35,7 @@ jobs:
           script: |
             VM_NAME=$(printf 'github-%(%Y-%m-%d-%H:%M:%S)T\n' -1)
             echo ${VM_NAME}
-            echo ::set-output name=name::${VM_NAME}
+            echo ::set-env name=VM_NAME::${VM_NAME}
       - name: Start Platiagro VM
         uses: appleboy/ssh-action@master
         with:
@@ -45,7 +44,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: 22
           script: |
-          echo ${{ steps.create_vm.outputs.name }}
+            echo $VM_NAME
       - name: Disconnect to VPN
         run: |
           sudo vpnc-disconnect
