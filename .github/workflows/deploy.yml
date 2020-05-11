@@ -52,12 +52,10 @@ jobs:
             VM_NAME=${{ steps.vars.outputs.VM_NAME }}
             echo ${VM_NAME}
             virsh start ${VM_NAME}
-            sleep 120
-            virsh destroy ${VM_NAME}
             sleep 60
+            virsh destroy ${VM_NAME}
             virsh start ${VM_NAME}
             sleep 120
-            sudo virt-cat -d ${VM_NAME} /home/cpqd/ifconfig.info
             VM_IP=$(sudo virt-cat -d ${VM_NAME} /home/cpqd/ifconfig.info | grep 'inet' | cut -d: -f2 | awk '{print $2}')
             echo ${VM_IP}
       - name: Disconnect to VPN
