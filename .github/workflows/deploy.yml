@@ -23,6 +23,13 @@ jobs:
           EOF'
       - name: Connect to VPN
         run: |
+          curl --request POST  \
+          --url https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments \
+          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'content-type: application/json' \
+          --data '{
+            "body": "Accessing intranet... (~35 minutes remaining)"
+            }'
           sudo vpnc vpnc
       - name: Create VM Name
         id: vars
@@ -40,6 +47,13 @@ jobs:
           command_timeout: 30m
           script: |
             VM_NAME=${{ steps.vars.outputs.VM_NAME }}
+            curl --request POST  \
+            --url https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments \
+            --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+            --header 'content-type: application/json' \
+            --data '{
+              "body": "Cloning VM... (~33 minutes remaining) \n\n New VM: '"$VM_NAME"' " 
+              }'
             sudo virt-clone --original=platia-automation --name=${VM_NAME} --file=/var/lib/libvirt/images/${VM_NAME}.qcow2
       - name: Start Platiagro VM
         uses: appleboy/ssh-action@master
@@ -50,18 +64,49 @@ jobs:
           port: 22
           timeout: 3m
           script: |
+            curl --request POST  \
+            --url https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments \
+            --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+            --header 'content-type: application/json' \
+            --data '{
+              "body": "Starting VM... (~13 minutes remaining)" 
+              }'
             VM_NAME=${{ steps.vars.outputs.VM_NAME }}
             virsh start ${VM_NAME}
             sleep 120
+      - name: Deploy Platiagro VM
+        uses: appleboy/ssh-action@master
+        with:
+          host: 10.50.11.163
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          timeout: 3m
+          command_timeout: 15m
+          script: |
+            VM_NAME=${{ steps.vars.outputs.VM_NAME }}
+            curl --request POST  \
+            --url https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments \
+            --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+            --header 'content-type: application/json' \
+            --data '{
+              "body": "Deploying PlatIAgro... (~10 minutes remaining)" 
+              }'
+            sleep 600
             VM_IP=$(sudo virt-cat -d ${VM_NAME} /home/cpqd/ifconfig.info | grep 'inet' | cut -d: -f2 | awk '{print $2}')
-            echo ${VM_IP}
+            curl --request POST  \
+            --url https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments \
+            --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+            --header 'content-type: application/json' \
+            --data '{
+              "body": "Done! \n\n Use this URL to access PlatIAgro: _http://'"$VM_IP"':31380_"
+              }'
             curl --request PATCH  \
             --url https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }} \
             --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
             --header 'content-type: application/json' \
             --data '{
-              "state": "closed",
-              "body": "_http://'"$VM_IP"':31380_"
+              "state": "closed"
               }'
       - name: Disconnect to VPN
         run: |
