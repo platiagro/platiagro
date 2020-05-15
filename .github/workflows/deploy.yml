@@ -39,7 +39,7 @@ jobs:
       - name: Create Platiagro VM
         uses: appleboy/ssh-action@master
         with:
-          host: 10.50.11.163
+          host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           port: 22
@@ -58,7 +58,7 @@ jobs:
       - name: Start Platiagro VM
         uses: appleboy/ssh-action@master
         with:
-          host: 10.50.11.163
+          host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           port: 22
@@ -77,7 +77,7 @@ jobs:
       - name: Deploy Platiagro VM
         uses: appleboy/ssh-action@master
         with:
-          host: 10.50.11.163
+          host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           port: 22
@@ -99,7 +99,7 @@ jobs:
             --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
             --header 'content-type: application/json' \
             --data '{
-              "body": "Done! \n\n Use this URL to access PlatIAgro: _http://'"$VM_IP"':31380_"
+              "body": "Done! \n\n Use this URL to access PlatIAgro: _http://'"$VM_IP"'_"
               }'
             curl --request PATCH  \
             --url https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }} \
