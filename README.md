@@ -25,7 +25,7 @@ Ensure that you have a [Kubernetes Cluster](https://kubernetes.io/docs/setup/), 
 export KF_NAME=platiagro
 export BASE_DIR=$(pwd)
 export KF_DIR=${BASE_DIR}/${KF_NAME}
-export CONFIG_URI="https://raw.githubusercontent.com/platiagro/manifests/v0.0.2-kubeflow-v1.0-branch/kfdef/kfctl_platiagro.v0.0.2.yaml"
+export CONFIG_URI="https://raw.githubusercontent.com/platiagro/manifests/v0.1.0-kubeflow-v1.0-branch/kfdef/kfctl_platiagro.v0.1.0.yaml"
 mkdir -p ${KF_DIR}
 cd ${KF_DIR}
 kfctl apply -V -f ${CONFIG_URI}
@@ -38,7 +38,7 @@ Then visit: http://localhost:31380/
 To undeploy PlatIAgro, run:
 
 ```shell
-export CONFIG_FILE=${KF_DIR}/kfctl_platiagro.v0.0.2.yaml
+export CONFIG_FILE=${KF_DIR}/kfctl_platiagro.v0.1.0.yaml
 cd ${KF_DIR}
 kfctl delete -f ${CONFIG_FILE}
 kubectl delete profile --all
