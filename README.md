@@ -44,6 +44,12 @@ kubectl delete profile --all
 kubectl delete namespace istio-system
 ```
 
-## Troubles
+## Optional steps
 
-Please read [INSTALLATION.md](https://github.com/platiagro/platiagro/blob/master/INSTALLATION.md)
+### Create a Kubernetes Cluster from scratch
+
+Read: [INSTALLATION.md](./INSTALLATION.md)
+
+### Prepare your cluster to use NVIDIA GPUs
+
+Read: [NVIDIA-GPU.md](./NVIDIA-GPU.md)
