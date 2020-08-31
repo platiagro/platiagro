@@ -1,7 +1,7 @@
 # PlatIAgro
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Gitter](https://badges.gitter.im/platiagro/community.svg)](https://gitter.im/platiagro/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Documentation](https://img.shields.io/badge/documentation-wiki-blue.svg?style=flat-square)](https://platiagro.github.io/docs/)
 
 ---
 
@@ -45,6 +45,12 @@ kubectl delete profile --all
 kubectl delete namespace istio-system
 ```
 
-## Troubles
+## Optional steps
 
-Please read [INSTALLATION.md](https://github.com/platiagro/platiagro/blob/master/INSTALLATION.md)
+### Create a Kubernetes Cluster from scratch
+
+Read: [INSTALLATION.md](./INSTALLATION.md)
+
+### Prepare your cluster to use NVIDIA GPUs
+
+Read: [NVIDIA-GPU.md](./NVIDIA-GPU.md)
