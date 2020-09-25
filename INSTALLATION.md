@@ -25,9 +25,18 @@ lsblk
 ## Docker
 
 ```shell
-sudo apt install docker.io
-sudo systemctl start docker
-sudo systemctl enable docker
+sudo apt-get update
+sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
 ```
 
 ## Kfctl
@@ -53,6 +62,9 @@ sudo apt-get install kubeadm=1.15.7-00 kubelet=1.15.7-00 kubectl=1.15.7-00
 ```shell
 sudo sysctl net.bridge.bridge-nf-call-iptables=1
 sudo kubeadm init
+
+sudo sed -i '/^    - --service-account-key-file.*/a \ \ \ \ - --service-account-issuer=kubernetes.default.svc' /etc/kubernetes/manifests/kube-apiserver.yaml
+sudo sed -i '/^    - --service-account-key-file.*/a \ \ \ \ - --service-account-signing-key-file=/etc/kubernetes/pki/sa.key' /etc/kubernetes/manifests/kube-apiserver.yaml
 
 rm -rf $HOME/.kube
 mkdir -p $HOME/.kube
