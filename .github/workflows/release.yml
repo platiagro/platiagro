@@ -1,0 +1,229 @@
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+name: Create Release for All Repositories
+
+jobs:
+  build:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      # web-ui
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          repository: platiagro/web-ui
+          token: ${{ secrets.API_TOKEN_GITHUB }}
+      - name: Create Release-Branch and Tag
+        id: create_tag
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git checkout -b ${GITHUB_REF##*/}-branch
+          git push origin ${GITHUB_REF##*/}-branch
+          git tag ${GITHUB_REF##*/}
+          git push origin tags/${GITHUB_REF##*/}
+          echo ::set-output name=sha::$(git rev-parse HEAD)
+          echo ::set-output name=tag::${GITHUB_REF##*/}
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          owner: platiagro
+          repo: web-ui
+          commitish: ${{ steps.create_tag.outputs.sha }}
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      # projects
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          repository: platiagro/projects
+          token: ${{ secrets.API_TOKEN_GITHUB }}
+      - name: Create Release-Branch and Tag
+        id: create_tag
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git checkout -b ${GITHUB_REF##*/}-branch
+          git push origin ${GITHUB_REF##*/}-branch
+          git tag ${GITHUB_REF##*/}
+          git push origin tags/${GITHUB_REF##*/}
+          echo ::set-output name=sha::$(git rev-parse HEAD)
+          echo ::set-output name=tag::${GITHUB_REF##*/}
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          owner: platiagro
+          repo: projects
+          commitish: ${{ steps.create_tag.outputs.sha }}
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      # pipelines
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          repository: platiagro/pipelines
+          token: ${{ secrets.API_TOKEN_GITHUB }}
+      - name: Create Release-Branch and Tag
+        id: create_tag
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git checkout -b ${GITHUB_REF##*/}-branch
+          git push origin ${GITHUB_REF##*/}-branch
+          git tag ${GITHUB_REF##*/}
+          git push origin tags/${GITHUB_REF##*/}
+          echo ::set-output name=sha::$(git rev-parse HEAD)
+          echo ::set-output name=tag::${GITHUB_REF##*/}
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          owner: platiagro
+          repo: pipelines
+          commitish: ${{ steps.create_tag.outputs.sha }}
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      # datasets
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          repository: platiagro/datasets
+          token: ${{ secrets.API_TOKEN_GITHUB }}
+      - name: Create Release-Branch and Tag
+        id: create_tag
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git checkout -b ${GITHUB_REF##*/}-branch
+          git push origin ${GITHUB_REF##*/}-branch
+          git tag ${GITHUB_REF##*/}
+          git push origin tags/${GITHUB_REF##*/}
+          echo ::set-output name=sha::$(git rev-parse HEAD)
+          echo ::set-output name=tag::${GITHUB_REF##*/}
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          owner: platiagro
+          repo: datasets
+          commitish: ${{ steps.create_tag.outputs.sha }}
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      # sdk
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          repository: platiagro/sdk
+          token: ${{ secrets.API_TOKEN_GITHUB }}
+      - name: Create Release-Branch and Tag
+        id: create_tag
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git checkout -b ${GITHUB_REF##*/}-branch
+          git push origin ${GITHUB_REF##*/}-branch
+          git tag ${GITHUB_REF##*/}
+          git push origin tags/${GITHUB_REF##*/}
+          echo ::set-output name=sha::$(git rev-parse HEAD)
+          echo ::set-output name=tag::${GITHUB_REF##*/}
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          owner: platiagro
+          repo: sdk
+          commitish: ${{ steps.create_tag.outputs.sha }}
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      # tasks
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          repository: platiagro/tasks
+          token: ${{ secrets.API_TOKEN_GITHUB }}
+      - name: Create Release-Branch and Tag
+        id: create_tag
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git checkout -b ${GITHUB_REF##*/}-branch
+          git push origin ${GITHUB_REF##*/}-branch
+          git tag ${GITHUB_REF##*/}
+          git push origin tags/${GITHUB_REF##*/}
+          echo ::set-output name=sha::$(git rev-parse HEAD)
+          echo ::set-output name=tag::${GITHUB_REF##*/}
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          owner: platiagro
+          repo: tasks
+          commitish: ${{ steps.create_tag.outputs.sha }}
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      # jupyterlab-extension
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          repository: platiagro/jupyterlab-extension
+          token: ${{ secrets.API_TOKEN_GITHUB }}
+      - name: Create Release-Branch and Tag
+        id: create_tag
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git checkout -b ${GITHUB_REF##*/}-branch
+          git push origin ${GITHUB_REF##*/}-branch
+          git tag ${GITHUB_REF##*/}
+          git push origin tags/${GITHUB_REF##*/}
+          echo ::set-output name=sha::$(git rev-parse HEAD)
+          echo ::set-output name=tag::${GITHUB_REF##*/}
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          owner: platiagro
+          repo: jupyterlab-extension
+          commitish: ${{ steps.create_tag.outputs.sha }}
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
