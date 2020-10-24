@@ -1,56 +1,39 @@
-# PlatIAgro
-
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Documentation](https://img.shields.io/badge/documentation-wiki-blue.svg?style=flat-square)](https://platiagro.github.io/docs/)
-
----
+<img src="./images/platiagro.png" width="200">
 
 AI Platform for pushing Ag-Tech forward.
 
 ---
 
-**NOTE**
-
-As of today, Kubernetes versions 1.14 and 1.15 are supported.
+Visit [our website](https://www.cpqd.com.br/inovacao/platiagro/) and [docs](https://platiagro.github.io/) to learn about this project.
 
 ---
 
-## Requirements
+## Installing PlatIAgro on an existing Kubernetes cluster
 
 Ensure that you have a [Kubernetes Cluster](https://kubernetes.io/docs/setup/), [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl), and [kfctl](https://www.kubeflow.org/docs/started/getting-started/#installing-command-line-tools) configured for running commands against the Kubernetes cluster.
 
-## Install PlatIAgro
+**NOTE: As of today, Kubernetes versions 1.14 and 1.15 are supported.**
+
+Run the following commands:
 
 ```shell
 export KF_NAME=platiagro
 export BASE_DIR=$(pwd)
 export KF_DIR=${BASE_DIR}/${KF_NAME}
-export CONFIG_URI="https://raw.githubusercontent.com/platiagro/manifests/v0.0.2-kubeflow-v1.0-branch/kfdef/kfctl_platiagro.v0.0.2.yaml"
+export CONFIG_URI="https://raw.githubusercontent.com/platiagro/manifests/v0.1.0-kubeflow-v1.0-branch/kfdef/kfctl_platiagro_tls.v0.1.0.yaml"
 mkdir -p ${KF_DIR}
 cd ${KF_DIR}
 kfctl apply -V -f ${CONFIG_URI}
 ```
 
-Then visit: http://localhost:31380/
+Then visit http://[LOAD-BALANCER-HOST]/
 
-## Delete PlatIAgro
+## One-click installation on Google Kubernetes Engine (GKE)
 
-To undeploy PlatIAgro, run:
+Visit https://platiagro-gcp.herokuapp.com/ and follow the instructions.
 
-```shell
-export CONFIG_FILE=${KF_DIR}/kfctl_platiagro.v0.0.2.yaml
-cd ${KF_DIR}
-kfctl delete -f ${CONFIG_FILE}
-kubectl delete profile --all
-kubectl delete namespace istio-system
-```
+## Useful Guides
 
-## Optional steps
-
-### Create a Kubernetes Cluster from scratch
-
-Read: [INSTALLATION.md](./INSTALLATION.md)
-
-### Prepare your cluster to use NVIDIA GPUs
-
-Read: [NVIDIA-GPU.md](./NVIDIA-GPU.md)
+- [Create a Kubernetes cluster on Ubuntu 18.04](./INSTALLATION.md)
+- [Virtualization with kvm and libvirt](./VIRTUALIZATION.md)
+- [Prepare your cluster to use NVIDIA GPUs](./NVIDIA-GPU.md)
