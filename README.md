@@ -34,5 +34,6 @@ Visit https://platiagro-gcp.herokuapp.com/ and follow the instructions.
 
 ## Useful Guides
 
-- [Create a Kubernetes cluster on Ubuntu 18.04](https://github.com/platiagro/platiagro/blob/master/INSTALLATION.md)
-- [Virtualization with kvm and libvirt](https://github.com/platiagro/platiagro/blob/master/VIRTUALIZATION.md)
+- [Create a Kubernetes cluster on Ubuntu 18.04](./INSTALLATION.md)
+- [Virtualization with kvm and libvirt](./VIRTUALIZATION.md)
+- [Prepare your cluster to use NVIDIA GPUs](./NVIDIA-GPU.md)
