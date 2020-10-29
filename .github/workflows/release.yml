@@ -18,7 +18,7 @@ jobs:
           repository: platiagro/web-ui
           token: ${{ secrets.API_TOKEN_GITHUB }}
       - name: Create Release-Branch and Tag
-        id: create_tag
+        id: create_tag_web_ui
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
@@ -36,7 +36,7 @@ jobs:
         with:
           owner: platiagro
           repo: web-ui
-          commitish: ${{ steps.create_tag.outputs.sha }}
+          commitish: ${{ steps.create_tag_web_ui.outputs.sha }}
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           draft: false
@@ -49,7 +49,7 @@ jobs:
           repository: platiagro/projects
           token: ${{ secrets.API_TOKEN_GITHUB }}
       - name: Create Release-Branch and Tag
-        id: create_tag
+        id: create_tag_projects
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
@@ -67,7 +67,7 @@ jobs:
         with:
           owner: platiagro
           repo: projects
-          commitish: ${{ steps.create_tag.outputs.sha }}
+          commitish: ${{ steps.create_tag_projects.outputs.sha }}
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           draft: false
@@ -80,7 +80,7 @@ jobs:
           repository: platiagro/pipelines
           token: ${{ secrets.API_TOKEN_GITHUB }}
       - name: Create Release-Branch and Tag
-        id: create_tag
+        id: create_tag_pipelines
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
@@ -98,7 +98,7 @@ jobs:
         with:
           owner: platiagro
           repo: pipelines
-          commitish: ${{ steps.create_tag.outputs.sha }}
+          commitish: ${{ steps.create_tag_pipelines.outputs.sha }}
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           draft: false
@@ -111,7 +111,7 @@ jobs:
           repository: platiagro/datasets
           token: ${{ secrets.API_TOKEN_GITHUB }}
       - name: Create Release-Branch and Tag
-        id: create_tag
+        id: create_tag_datasets
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
@@ -129,7 +129,7 @@ jobs:
         with:
           owner: platiagro
           repo: datasets
-          commitish: ${{ steps.create_tag.outputs.sha }}
+          commitish: ${{ steps.create_tag_datasets.outputs.sha }}
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           draft: false
@@ -142,7 +142,7 @@ jobs:
           repository: platiagro/sdk
           token: ${{ secrets.API_TOKEN_GITHUB }}
       - name: Create Release-Branch and Tag
-        id: create_tag
+        id: create_tag_sdk
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
@@ -160,7 +160,7 @@ jobs:
         with:
           owner: platiagro
           repo: sdk
-          commitish: ${{ steps.create_tag.outputs.sha }}
+          commitish: ${{ steps.create_tag_sdk.outputs.sha }}
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           draft: false
@@ -173,7 +173,7 @@ jobs:
           repository: platiagro/tasks
           token: ${{ secrets.API_TOKEN_GITHUB }}
       - name: Create Release-Branch and Tag
-        id: create_tag
+        id: create_tag_tasks
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
@@ -191,7 +191,7 @@ jobs:
         with:
           owner: platiagro
           repo: tasks
-          commitish: ${{ steps.create_tag.outputs.sha }}
+          commitish: ${{ steps.create_tag_tasks.outputs.sha }}
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           draft: false
@@ -204,7 +204,7 @@ jobs:
           repository: platiagro/jupyterlab-extension
           token: ${{ secrets.API_TOKEN_GITHUB }}
       - name: Create Release-Branch and Tag
-        id: create_tag
+        id: create_tag_jupyterlab_extension
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
@@ -222,7 +222,7 @@ jobs:
         with:
           owner: platiagro
           repo: jupyterlab-extension
-          commitish: ${{ steps.create_tag.outputs.sha }}
+          commitish: ${{ steps.create_tag_jupyterlab_extension.outputs.sha }}
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           draft: false
