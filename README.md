@@ -37,3 +37,11 @@ Visit https://platiagro-gcp.herokuapp.com/ and follow the instructions.
 - [Create a Kubernetes cluster on Ubuntu 18.04](./INSTALLATION.md)
 - [Virtualization with kvm and libvirt](./VIRTUALIZATION.md)
 - [Prepare your cluster to use NVIDIA GPUs](./NVIDIA-GPU.md)
+
+## Releasing PlatIAgro components
+
+Create a tag that matches the pattern v*, i.e. v1.0, v0.2.0, then push it.
+
+`git tag v0.1.0 && git push origin tags/v0.1.0`
+
+**This will trigger an action that creates tags and releases in all repositories.**
