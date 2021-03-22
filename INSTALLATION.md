@@ -44,8 +44,8 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 ## Kfctl
 
 ```shell
-wget https://github.com/kubeflow/kfctl/releases/download/v1.0-rc.4/kfctl_v1.0-rc.3-1-g24b60e8_linux.tar.gz
-tar -xvf kfctl_v1.0-rc.3-1-g24b60e8_linux.tar.gz
+wget https://github.com/kubeflow/kfctl/releases/download/v1.2.0/kfctl_v1.2.0-0-gbc038f9_linux.tar.gz
+tar -xvf kfctl_v1.2.0-0-gbc038f9_linux.tar.gz
 sudo mv kfctl /usr/local/bin/kfctl
 ```
 
