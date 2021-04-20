@@ -20,7 +20,7 @@ Run the following commands:
 export KF_NAME=platiagro
 export BASE_DIR=$(pwd)
 export KF_DIR=${BASE_DIR}/${KF_NAME}
-export CONFIG_URI="https://raw.githubusercontent.com/platiagro/manifests/v0.1.0-kubeflow-v1.0-branch/kfdef/kfctl_platiagro_tls.v0.1.0.yaml"
+export CONFIG_URI="https://raw.githubusercontent.com/platiagro/manifests/v0.2.0-kubeflow-v1.2-branch/kfdef/kfctl_k8s_platiagro.v0.2.0.yaml"
 mkdir -p ${KF_DIR}
 cd ${KF_DIR}
 kfctl apply -V -f ${CONFIG_URI}
