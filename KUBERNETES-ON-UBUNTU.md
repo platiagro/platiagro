@@ -41,12 +41,12 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io
 ```
 
-## Kfctl
+## Kustomize
 
 ```shell
-wget https://github.com/kubeflow/kfctl/releases/download/v1.2.0/kfctl_v1.2.0-0-gbc038f9_linux.tar.gz
-tar -xvf kfctl_v1.2.0-0-gbc038f9_linux.tar.gz
-sudo mv kfctl /usr/local/bin/kfctl
+wget https://github.com/kubernetes-sigs/kustomize/releases/download/v3.2.0/kustomize_3.2.0_linux_amd64
+sudo chmod +x kustomize_3.2.0_linux_amd64
+sudo mv kustomize_3.2.0_linux_amd64 /usr/local/bin/kustomize
 ```
 
 ## Kubernetes
@@ -54,7 +54,7 @@ sudo mv kfctl /usr/local/bin/kfctl
 ```shell
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
 sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
-sudo apt-get install kubeadm=1.15.7-00 kubelet=1.15.7-00 kubectl=1.15.7-00
+sudo apt-get install kubeadm=1.18.19-00 kubelet=1.18.19-00 kubectl=1.18.19-00
 ```
 
 # Init
