@@ -73,37 +73,6 @@ jobs:
           draft: false
           prerelease: false
 
-      # pipelines
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          repository: platiagro/pipelines
-          token: ${{ secrets.API_TOKEN_GITHUB }}
-      - name: Create Release-Branch and Tag
-        id: create_tag_pipelines
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git checkout -b ${GITHUB_REF##*/}-branch
-          git push origin ${GITHUB_REF##*/}-branch
-          git tag ${GITHUB_REF##*/}
-          git push origin tags/${GITHUB_REF##*/}
-          echo ::set-output name=sha::$(git rev-parse HEAD)
-          echo ::set-output name=tag::${GITHUB_REF##*/}
-      - name: Create Release
-        id: create_release_pipelines
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
-        with:
-          owner: platiagro
-          repo: pipelines
-          commitish: ${{ steps.create_tag_pipelines.outputs.sha }}
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
-
       # datasets
       - name: Checkout code
         uses: actions/checkout@v2
