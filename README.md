@@ -29,7 +29,7 @@ Adjust the variable `INSTALL_DIR=platiagro`, then run the following commands:
 
 ```shell
 export INSTALL_DIR=platiagro
-git clone --single-branch --branch v0.2.0-kubeflow-v1.3-branch https://github.com/platiagro/manifests.git
+git clone --single-branch --branch v0.3.0-kubeflow-v1.3-branch https://github.com/platiagro/manifests.git
 cd manifests
 while ! kustomize build $INSTALL_DIR | kubectl apply -f -; do echo "Retrying to apply resources"; sleep 10; done
 ```
